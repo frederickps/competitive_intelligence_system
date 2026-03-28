@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+
+  qdrant:
+    image: qdrant/qdrant:latest
+
+  neo4j:
+    image: neo4j:5
+
+  minio:
+    image: minio/minio:latest
+
+  api:
+    build: .
