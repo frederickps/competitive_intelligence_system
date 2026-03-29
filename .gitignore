@@ -1,5 +1,6 @@
 .env
 CLAUDE.md
+FEATURES.md
 __pycache__/
 *.pyc
 *.pyo
