@@ -87,7 +87,7 @@ class Settings(BaseSettings):
     @property
     def sectors(self) -> list[str]:
         """Returns the list of sectors from the comma-separated string."""
-        return [sector.strip().lower() for sector in self.cis_sectors.split(",")]
+        return [sector.strip().lower() for sector in self.cis_sectors.split(",") if sector.strip()]
 
 
 settings = Settings()

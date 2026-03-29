@@ -1,4 +1,4 @@
-from src.cis.config.settings import Settings
+from cis.config.settings import Settings
 import pytest
 
 
