@@ -29,9 +29,7 @@ def run_migrations() -> None:
             if not row:
                 sql = migration_file.read_text(encoding="utf-8")
                 conn.execute(sql)
-                conn.execute(
-                    "INSERT INTO schema_migrations (filename) VALUES (%s)", (filename,)
-                )
+                conn.execute("INSERT INTO schema_migrations (filename) VALUES (%s)", (filename,))
                 print(f"Applied migration: {filename}")
             else:
                 print(f"Skipping already applied migration: {filename}")

@@ -26,15 +26,21 @@ cp .env.example .env
 ```
 
 Open `.env` and fill in all required values:
-- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_URL`
 - `NEO4J_PASSWORD`
 - `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY` (min. 8 characters)
 - `OPENAI_API_KEY`
+- `CIS_DOMAIN`, `CIS_SECTORS` (default: `renewable_energy` / `solar,wind,hydrogen,battery_storage`)
 
 **3. Create and activate virtual environment**
 ```bash
 python -m venv .venv
 source .venv/Scripts/activate  # Git Bash / Mac / Linux
+```
+
+**4. Install dependencies**
+```bash
+pip install -e .
 ```
 
 ---
@@ -43,7 +49,7 @@ source .venv/Scripts/activate  # Git Bash / Mac / Linux
 
 Start all infrastructure services:
 ```bash
-docker compose up postgres qdrant neo4j minio
+docker compose up postgres qdrant neo4j minio -d
 ```
 
 Start a single service:
@@ -51,9 +57,31 @@ Start a single service:
 docker compose up postgres
 ```
 
-Run in background (detached):
+---
+
+## Run Migrations
+
+Apply all pending database migrations:
 ```bash
-docker compose up postgres qdrant neo4j minio -d
+python migrations/run_migrations.py
+```
+
+---
+
+## Start the API
+
+```bash
+uvicorn cis.api.main:app --reload
+```
+
+The API will be available at `http://localhost:8000`.
+
+---
+
+## Run Tests
+
+```bash
+pytest
 ```
 
 ---
